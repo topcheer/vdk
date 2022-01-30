@@ -387,7 +387,7 @@ func (client *RTSPClient) request(method string, customHeaders map[string]string
 		res := make(map[string]string)
 		for {
 			line, isPrefix, err = client.connRW.ReadLine()
-			fmt.Println(line)
+			fmt.Println(string(line))
 			if err != nil {
 				return
 			}
