@@ -412,7 +412,7 @@ func (client *RTSPClient) request(method string, customHeaders map[string]string
 				res[splits[0]] = splits[1]
 			}
 			if strings.Contains(string(line), "Location:") {
-				client.parseURL(html.UnescapeString(string(line)[10:]))
+				client.parseURL(html.UnescapeString(strings.TrimSpace(string(line)[10:])))
 				fmt.Println("Now  The  URL become: ", client.pURL.String())
 				//client.request(OPTIONS, customHeaders, client.pURL.String(), one, nores)
 				client.request(method, customHeaders, client.pURL.String(), one, nores)
