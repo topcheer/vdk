@@ -391,7 +391,7 @@ func (client *RTSPClient) request(method string, customHeaders map[string]string
 			if err != nil {
 				return
 			}
-			if strings.Contains(string(line), "RTSP/1.0") && (!strings.Contains(string(line), "200") && !strings.Contains(string(line), "401")) {
+			if strings.Contains(string(line), "RTSP/1.0") && (!strings.Contains(string(line), "200") && !strings.Contains(string(line), "401") && !strings.Contains(string(line), "302")) {
 				time.Sleep(1 * time.Second)
 				err = errors.New("Camera send status" + string(line))
 				return
