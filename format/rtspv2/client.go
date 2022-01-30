@@ -424,7 +424,7 @@ func (client *RTSPClient) request(method string, customHeaders map[string]string
 			fmt.Println("Now  The  URL become: ", client.pURL.String())
 			//client.request(OPTIONS, customHeaders, client.pURL.String(), one, nores)
 			client.request(method, customHeaders, client.pURL.String(), one, nores)
-			return
+			return nil
 		}
 		if val, ok := res["WWW-Authenticate"]; ok {
 			if strings.Contains(val, "Digest") {
