@@ -349,6 +349,7 @@ func (client *RTSPClient) startStream() {
 }
 
 func (client *RTSPClient) request(method string, customHeaders map[string]string, uri string, one bool, nores bool) (err error) {
+	fmt.Println("Requesting:", uri)
 	err = client.conn.SetDeadline(time.Now().Add(client.options.ReadWriteTimeout))
 	if err != nil {
 		return
@@ -410,10 +411,11 @@ func (client *RTSPClient) request(method string, customHeaders map[string]string
 				}
 				res[splits[0]] = splits[1]
 				if splits[0] == "Location" {
-					fmt.Println(splits[1])
-					client.parseURL(html.UnescapeString(splits[1]))
-					client.request(method, customHeaders, client.pURL.String(), one, nores)
 
+					client.parseURL(html.UnescapeString(splits[1]))
+					fmt.Println("Now  The  URL become: ", client.pURL.String())
+					client.request(OPTIONS, customHeaders, client.pURL.String(), one, nores)
+					client.request(method, customHeaders, client.pURL.String(), one, nores)
 					return
 				}
 			}
