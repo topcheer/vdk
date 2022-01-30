@@ -409,7 +409,12 @@ func (client *RTSPClient) request(method string, customHeaders map[string]string
 					splits[0] = "Content-Length"
 				}
 				res[splits[0]] = splits[1]
+				if splits[0] == "Location" {
+					client.parseURL(splits[1])
+					return
+				}
 			}
+
 		}
 		if val, ok := res["WWW-Authenticate"]; ok {
 			if strings.Contains(val, "Digest") {
