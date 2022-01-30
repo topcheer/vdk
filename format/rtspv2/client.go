@@ -411,8 +411,9 @@ func (client *RTSPClient) request(method string, customHeaders map[string]string
 				res[splits[0]] = splits[1]
 				if splits[0] == "Location" {
 					fmt.Println(splits[1])
-					client.request(method, customHeaders, splits[1], one, nores)
-					client.parseURL(splits[1])
+					client.parseURL(html.UnescapeString(splits[1]))
+					client.request(method, customHeaders, client.pURL.String(), one, nores)
+
 					return
 				}
 			}
